@@ -5,6 +5,24 @@
 
 set -e  # Exit on error
 
+# Detect Windows environment and recommend PowerShell version
+if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" || -n "$WINDIR" ]]; then
+    echo "🪟 Windows detected!"
+    echo ""
+    echo "For the best Windows experience, we recommend using the PowerShell version:"
+    echo "  .\setup.ps1"
+    echo ""
+    echo "You can also continue with this bash script if preferred."
+    echo ""
+    read -p "Continue with bash script? (y/N): " -n 1 -r
+    echo ""
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+        echo "Please run: .\setup.ps1"
+        exit 0
+    fi
+    echo ""
+fi
+
 # Initialize flags
 OVERWRITE_INSTRUCTIONS=false
 OVERWRITE_STANDARDS=false
