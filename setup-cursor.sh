@@ -47,7 +47,12 @@ echo "📁 Creating .cursor/rules directory..."
 mkdir -p .cursor/rules
 
 # Base URL for raw GitHub content
-BASE_URL="https://raw.githubusercontent.com/instrumental-products/agent-os/main"
+# Allow BASE_URL override for testing purposes
+# Usage: BASE_URL="http://localhost:8080" ./setup-cursor.sh
+BASE_URL="${BASE_URL:-https://raw.githubusercontent.com/instrumental-products/agent-os/main}"
+if [ "$BASE_URL" != "https://raw.githubusercontent.com/instrumental-products/agent-os/main" ]; then
+    echo "Using custom BASE_URL: $BASE_URL"
+fi
 
 echo ""
 echo "📥 Downloading and setting up Cursor command files..."

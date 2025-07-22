@@ -41,7 +41,14 @@ if (-not (Test-Path $AgentOSInstructions) -or -not (Test-Path $AgentOSStandards)
 }
 
 # Base URL for raw GitHub content
-$BASE_URL = "https://raw.githubusercontent.com/instrumental-products/agent-os/main"
+# Allow BASE_URL override for testing purposes
+# Usage: $env:BASE_URL = "http://localhost:8080"; .\setup-claude-code.ps1
+if ($env:BASE_URL) {
+    $BASE_URL = $env:BASE_URL
+    Write-Host "Using custom BASE_URL: $BASE_URL" -ForegroundColor Yellow
+} else {
+    $BASE_URL = "https://raw.githubusercontent.com/instrumental-products/agent-os/main"
+}
 
 # Create directories
 Write-Host "📁 Creating directories..." -ForegroundColor Blue

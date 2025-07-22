@@ -43,7 +43,12 @@ if [ ! -d "$HOME/.agent-os/instructions" ] || [ ! -d "$HOME/.agent-os/standards"
 fi
 
 # Base URL for raw GitHub content
-BASE_URL="https://raw.githubusercontent.com/instrumental-products/agent-os/main"
+# Allow BASE_URL override for testing purposes
+# Usage: BASE_URL="http://localhost:8080" ./setup-claude-code.sh
+BASE_URL="${BASE_URL:-https://raw.githubusercontent.com/instrumental-products/agent-os/main}"
+if [ "$BASE_URL" != "https://raw.githubusercontent.com/instrumental-products/agent-os/main" ]; then
+    echo "Using custom BASE_URL: $BASE_URL"
+fi
 
 # Create directories
 echo "📁 Creating directories..."

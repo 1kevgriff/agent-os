@@ -46,7 +46,14 @@ $CursorRulesPath = ".cursor\rules"
 New-Item -ItemType Directory -Force -Path $CursorRulesPath | Out-Null
 
 # Base URL for raw GitHub content
-$BASE_URL = "https://raw.githubusercontent.com/instrumental-products/agent-os/main"
+# Allow BASE_URL override for testing purposes
+# Usage: $env:BASE_URL = "http://localhost:8080"; .\setup-cursor.ps1
+if ($env:BASE_URL) {
+    $BASE_URL = $env:BASE_URL
+    Write-Host "Using custom BASE_URL: $BASE_URL" -ForegroundColor Yellow
+} else {
+    $BASE_URL = "https://raw.githubusercontent.com/instrumental-products/agent-os/main"
+}
 
 Write-Host ""
 Write-Host "📥 Downloading and setting up Cursor command files..." -ForegroundColor Blue
